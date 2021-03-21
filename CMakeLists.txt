@@ -4,7 +4,6 @@ set(PROJECT_NAME mcmc)
 set(PROJECT_VERSION 1.0)
 
 cmake_policy(SET CMP0048 NEW) # version in project()
-cmake_policy(SET CMP0103 NEW)
 project(${PROJECT_NAME} VERSION ${PROJECT_VERSION})
 
 
