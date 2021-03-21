@@ -1,0 +1,8 @@
+# mcmcConfig.cmake
+
+get_filename_component( mcmc_CMAKE_DIR "${CMAKE_CURRENT_LIST_FILE}" PATH )
+
+# Find the dependencies
+include( CMakeFindDependencyMacro )
+find_package(BLAS)
+
