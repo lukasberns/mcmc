@@ -22,7 +22,9 @@ execute_process(
 set(MCMC_SRC_DIRECTORY ".")
 
 list(APPEND CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake)
+
 find_package(BLAS REQUIRED)
+find_package(LAPACK REQUIRED)
 add_compile_options(-Wall -O3 -march=native -ffp-contract=fast -flto -DNDEBUG -DARMA_NO_DEBUG)
 
 include_directories(BEFORE ${MCMC_SRC_DIRECTORY}/include/armodillo_bits)
@@ -67,7 +69,7 @@ set(sources
         )
 
 #pbuilder_library( mcmc SOURCE_FILES DEP_LIBRARIES )
-set(PUBLIC_EXT_LIBS ${BLAS_LIBRARIES} )
+set(PUBLIC_EXT_LIBS ${BLAS_LIBRARIES} ${LAPACK_LIBRARIES}  )
 
 MESSAGE( STATUS ${PUBLIC_EXT_LIBS})
 MESSAGE( STATUS ${PRIVATE_EXT_LIBS})
