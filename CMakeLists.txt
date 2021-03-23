@@ -16,7 +16,7 @@ set(CMAKE_CXX_STANDARD 14)
 # download some files for MCMC
 execute_process(
         COMMAND ./configure -i ${CMAKE_INSTALL_PREFIX}
-        WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}/library/externals/mcmc
+        WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}
 )
 
 set(MCMC_SRC_DIRECTORY ".")
