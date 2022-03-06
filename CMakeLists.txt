@@ -25,7 +25,7 @@ list(APPEND CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake)
 
 find_package(BLAS REQUIRED)
 find_package(LAPACK REQUIRED)
-add_compile_options(-Wall -O3 -march=native -ffp-contract=fast -flto -DNDEBUG -DARMA_NO_DEBUG)
+add_compile_options(-Wall -O3 -ffp-contract=fast -flto -DNDEBUG -DARMA_NO_DEBUG)
 
 include_directories(BEFORE ${MCMC_SRC_DIRECTORY}/include/armodillo_bits)
 include_directories(BEFORE ${MCMC_SRC_DIRECTORY}/include/)
