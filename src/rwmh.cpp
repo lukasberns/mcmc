@@ -100,7 +100,18 @@ mcmc::rwmh_int(const arma::vec& initial_vals, arma::mat& draws_out, std::functio
     for (size_t jj = 0; jj < n_draws_keep + n_draws_burnin; jj++)
     {
 
-        new_draw = prev_draw + cov_mcmc_chol * krand.randn();
+        double custom_proposal_LP_fw = 0.;
+        double custom_proposal_LP_bw = 0.;
+        if (settings.rwmh_custom_proposal) {
+            (*settings.rwmh_custom_proposal)(new_draw,prev_draw);
+            if (settings.rwmh_custom_proposal_logprob) {
+                custom_proposal_LP_fw = (*settings.rwmh_custom_proposal_logprob)(new_draw,prev_draw);
+                custom_proposal_LP_bw = (*settings.rwmh_custom_proposal_logprob)(prev_draw,new_draw);
+            }
+        }
+        else {
+            new_draw = prev_draw + cov_mcmc_chol * krand.randn();
+        }
         
         prop_LP = box_log_kernel(new_draw, target_data);
         
@@ -109,8 +120,11 @@ mcmc::rwmh_int(const arma::vec& initial_vals, arma::mat& draws_out, std::functio
         }
 
         //
-
-        double comp_val = std::min(0.0,prop_LP - prev_LP);
+        double comp_val = std::min(
+                0.0,
+                prop_LP - prev_LP
+               +custom_proposal_LP_bw - custom_proposal_LP_fw
+        );
         double z = arma::as_scalar(arma::randu(1));
 
         if (z < std::exp(comp_val))

@@ -84,6 +84,9 @@ struct algo_settings_t
     arma::mat rwmh_cov_mat;
 
     double rwmh_accept_rate; // will be returned by the function
+
+    std::function<void(arma::vec&,const arma::vec&)> *rwmh_custom_proposal = NULL; // make a proposal, second arg is the current value and first arg should be modified for the proposed point
+    std::function<double(const arma::vec&,const arma::vec&)> *rwmh_custom_proposal_logprob = NULL; // log(probability) to propose the point in the first argument given the point in the second argument
 };
 
 #endif
